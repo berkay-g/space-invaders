@@ -69,6 +69,9 @@ std::vector<std::vector<SDL_FRect>> bunker4;
 float cooldown_count = 0.f;
 bool cooldown = false;
 
+bool game_over = false;
+int previous_score = 0;
+
 void startGame(int level)
 {
     if (cooldown)
@@ -269,6 +272,8 @@ void updateAndRenderGame(App *app, float deltaTime, SDL_Texture *sheet)
                 level = 1;
                 enemy_bullets.clear();
                 startGame(level);
+                game_over = true;
+                previous_score = score;
                 score = 0;
                 break;
             }
@@ -526,6 +531,8 @@ void updateAndRenderGame(App *app, float deltaTime, SDL_Texture *sheet)
             lives = 3;
             level = 1;
             startGame(level);
+            game_over = true;
+            previous_score = score;
             score = 0;
             break;
         }
