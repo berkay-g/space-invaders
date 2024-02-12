@@ -505,7 +505,7 @@ void updateAndRenderGame(App *app, float deltaTime, SDL_Texture *sheet)
 
     for (int i = 0; i < enemy_hitboxes.size(); i++)
     {
-        if (enemy_hitboxes[i].y >= (MOVE_DISTANCE_Y) * (9.f + 29))
+        if (enemy_hitboxes[i].y >= (MOVE_DISTANCE_Y) * (9.f + 29) && enemy_status[i] == 1)
         {
             enemy_bullet_cooldown = 0.f;
             enemy_bullets.clear();
