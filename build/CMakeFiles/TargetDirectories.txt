@@ -1,3 +1,0 @@
-E:/Shell Folders/Downloads/gittest/precompiled/space-invaders/build/CMakeFiles/invaders.dir
-E:/Shell Folders/Downloads/gittest/precompiled/space-invaders/build/CMakeFiles/ALL_BUILD.dir
-E:/Shell Folders/Downloads/gittest/precompiled/space-invaders/build/CMakeFiles/ZERO_CHECK.dir
