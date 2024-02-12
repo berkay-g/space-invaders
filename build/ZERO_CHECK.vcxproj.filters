@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="E:\Shell Folders\Downloads\gittest\precompiled\space-invaders\build\CMakeFiles\0a0370aa14faeb5331a6889d0745c272\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{E89FF646-15DF-3EFF-96A2-C40BA1141E94}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

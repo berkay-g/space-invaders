@@ -74,7 +74,6 @@ App::App(const char *window_title, int window_width, int window_height, Uint32 w
     SDL_RendererInfo info;
     SDL_GetRendererInfo(renderer, &info);
     SDL_Log("Current SDL_Renderer: %s", info.name);
-    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
 
     SDL_DisplayID display = SDL_GetPrimaryDisplay();
     const SDL_DisplayMode *displayMode = SDL_GetCurrentDisplayMode(display);

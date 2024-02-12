@@ -181,44 +181,19 @@ void ImGui_ImplSDLRenderer3_RenderDrawData(ImDrawData* draw_data)
                 const float* xy = (const float*)(const void*)((const char*)(vtx_buffer + pcmd->VtxOffset) + offsetof(ImDrawVert, pos));
                 const float* uv = (const float*)(const void*)((const char*)(vtx_buffer + pcmd->VtxOffset) + offsetof(ImDrawVert, uv));
 #if SDL_VERSION_ATLEAST(2,0,19)
-                // const SDL_Color* color = (const SDL_Color*)(const void*)((const char*)(vtx_buffer + pcmd->VtxOffset) + offsetof(ImDrawVert, col)); // SDL 2.0.19+
+                const SDL_Color* color = (const SDL_Color*)(const void*)((const char*)(vtx_buffer + pcmd->VtxOffset) + offsetof(ImDrawVert, col)); // SDL 2.0.19+
 #else
                 const int* color = (const int*)(const void*)((const char*)(vtx_buffer + pcmd->VtxOffset) + offsetof(ImDrawVert, col)); // SDL 2.0.17 and 2.0.18
 #endif
-
-                // In SDL3, vertex colors are now represented as SDL_FColor (float[4]) instead of SDL_Color (char[4]).
-                // We need to convert these colors.
-                static SDL_FColor* convColorBuffer = NULL;
-                static int convColorCapacity = 0;
-            
-                int verticesCount = cmd_list->VtxBuffer.Size - pcmd->VtxOffset;
-                if (verticesCount > convColorCapacity) {
-                    void* newBuffer = SDL_realloc(convColorBuffer, verticesCount * sizeof(SDL_FColor));
-                    IM_ASSERT(newBuffer != NULL);
-                    if (newBuffer == NULL)
-                        return; // Do nothing...
-                    convColorBuffer = (SDL_FColor*)newBuffer;
-                    convColorCapacity = verticesCount;
-                }
-            
-                for (int i = 0; i < verticesCount; ++i) {
-                    SDL_Color color = (SDL_Color&)(vtx_buffer[pcmd->VtxOffset + i].col);
-                    convColorBuffer[i].r = color.r / 255.f;
-                    convColorBuffer[i].g = color.g / 255.f;
-                    convColorBuffer[i].b = color.b / 255.f;
-                    convColorBuffer[i].a = color.a / 255.f;
-                }
 
                 // Bind texture, Draw
 				SDL_Texture* tex = (SDL_Texture*)pcmd->GetTexID();
                 SDL_RenderGeometryRaw(bd->SDLRenderer, tex,
                     xy, (int)sizeof(ImDrawVert),
-                    convColorBuffer, (int)sizeof(SDL_FColor),
+                    color, (int)sizeof(ImDrawVert),
                     uv, (int)sizeof(ImDrawVert),
-                    verticesCount,
+                    cmd_list->VtxBuffer.Size - pcmd->VtxOffset,
                     idx_buffer + pcmd->IdxOffset, pcmd->ElemCount, sizeof(ImDrawIdx));
-
-                
             }
         }
     }
