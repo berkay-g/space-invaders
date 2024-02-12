@@ -153,7 +153,7 @@ int main()
 
                 if (event.key.keysym.sym == SDLK_v)
                 {
-                    startGame(++level);
+                    // startGame(++level);
                     SDL_Log("level %d", level);
                 }
             }
