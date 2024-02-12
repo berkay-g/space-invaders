@@ -24,7 +24,7 @@ void draw(App *app)
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
 
-    if (!start)
+    if (!start && !game_over)
     {
         ImGui::SetNextWindowPos({SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2 - 70}, ImGuiCond_FirstUseEver);
         ImGui::Begin("hey", 0, ImGuiWindowFlags_AlwaysAutoResize);
@@ -35,7 +35,7 @@ void draw(App *app)
         ImGui::End();
     }
 
-    if (pause && start)
+    if (pause && start && !game_over)
     {
         ImGui::SetNextWindowPos({SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2 - 70}, ImGuiCond_FirstUseEver);
         ImGui::Begin("pause", 0, ImGuiWindowFlags_AlwaysAutoResize);
@@ -50,8 +50,24 @@ void draw(App *app)
             quit = 1;
         ImGui::End();
     }
+
+    if (game_over)
+    {
+        ImGui::SetNextWindowPos({SCREEN_WIDTH / 2 - 60, SCREEN_HEIGHT / 2 - 80}, ImGuiCond_FirstUseEver);
+        ImGui::Begin("you died", 0, ImGuiWindowFlags_AlwaysAutoResize);
+        ImGui::Text("score %d", previous_score);
+        if (ImGui::Button("try again"))
+        {
+            pause = false;
+            game_over = false;
+        }
+        if (ImGui::Button("quit"))
+            quit = 1;
+        ImGui::End();
+    }
+
     
-    if (!pause && start)
+    if (!pause && start && !game_over)
     {
         updateAndRenderGame(app, io.DeltaTime, sheet);
     }
